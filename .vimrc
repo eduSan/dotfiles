@@ -80,16 +80,3 @@ endif
 
 " Treat Handlebars templates as HTML
 au BufNewFile,BufRead *.handlebars set filetype=html
-
-" Magic completion
-inoremap {<CR> {<CR>}<Esc>O
-inoremap <expr> }  strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
-
-"inoremap ( ()<Esc>i
-"inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-
-"inoremap ' ''<Esc>i
-"inoremap <expr> ' strpart(getline('.'), col('.')-1, 1) == "\'" ? "\<Right>" : "\'\'\<Left>"
-
-"inoremap " ""<Esc>i
-"inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\"\"\<Left>"
