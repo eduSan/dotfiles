@@ -48,6 +48,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neoyank.vim'
 " Snippets and completion engines
 "--------------------------------
@@ -93,7 +94,22 @@ NeoBundleCheck
 "
 " Unite
 let g:unite_source_history_yank_enable = 1
+" Configure ag to grep files
+let g:unite_source_grep_command = 'ag'
+let g:unite_source_grep_default_opts =
+    \ '-i --vimgrep --hidden --ignore ' .
+    \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''*node_modules/*'' --ignore ''.bzr'''
+let g:unite_source_grep_recursive_opt = ''
+" Setup ag in place of find
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
+let g:unite_source_rec_async_command=[
+            \'ag', '--nocolor', '--nogroup',
+            \'--ignore', '.hg',
+            \'--ignore', '.svn',
+            \'--ignore', '.git',
+            \'--ignore', '.bzr',
+            \'--ignore', '*node_modules/*',
+            \'--hidden', '-g', '']
 nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
 nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
 nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
@@ -103,11 +119,11 @@ nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+    " Play nice with supertab
+    let b:SuperTabDisabled=1
+    " Enable navigation with control-j and control-k in insert mode
+    imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+    imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 "-----------------------------------------------
 " Syntastic
@@ -128,14 +144,14 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 " SuperTab like snippets behavior.
 imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ pumvisible() ? "\<C-n>" :
+            \ neosnippet#expandable_or_jumpable() ?
+            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 " For conceal markers.
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+    set conceallevel=2 concealcursor=niv
 endif
 "-----------------------------------------------
 "  NeoComplete
@@ -149,7 +165,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:airline_exclude_preview = 1
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 "-----------------------------------------------
@@ -174,9 +190,9 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " END PLUGINS
 """"""""""""""""""""""""""""""""""""
 
-			"=========================="
-			"=  III. General Options  ="
-			"=========================="
+"=========================="
+"=  III. General Options  ="
+"=========================="
 
 set encoding=utf-8  " A life in ASCII is a life of pain
 syntax on
@@ -184,6 +200,7 @@ set number
 "set hidden
 set softtabstop=4
 set smarttab
+set expandtab
 set shiftwidth=4
 set backspace=2
 set mouse=a
@@ -204,10 +221,10 @@ let &t_Co=256
 set clipboard=unnamedplus
 " Set color theme for gvim
 if has('gui_running')
-	set background=dark
-	colorscheme solarized
-	" For some reason Droid Sans won't work right. Whatever...
-	set guifont=Liberation\ Mono\ for\ Powerline\ 14
+    set background=dark
+    colorscheme solarized
+    " For some reason Droid Sans won't work right. Whatever...
+    set guifont=Liberation\ Mono\ for\ Powerline\ 14
 endif
 " Treat Handlebars templates as HTML
 au BufNewFile,BufRead *.handlebars set filetype=html
