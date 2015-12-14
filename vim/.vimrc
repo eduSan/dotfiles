@@ -1,6 +1,22 @@
-			"========================="
-			"  Plugin Manager Config  "
-			"========================="
+" edusan's .vimrc
+" From a collage of tips from hundreds
+" of cool people.
+" ====================================
+" Contents:
+" I.   Plugin Manager (NeoBundle)
+" II.  Plugins configuration
+" 	- Unite
+" 	- Syntastic
+" 	- NeoSnippet
+" 	- NeoComplete
+" 	- Airline
+" 	- Ctrl-p
+" 	- JsBeautify
+" III. General Options
+"=====================================
+			"=============================="
+			"=  I. Plugin Manager Config  ="
+			"=============================="
 "NeoBundle Scripts-----------------------------
 if has('vim_starting')
   if &compatible
@@ -48,6 +64,7 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'ervandew/supertab'
+"NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'edkolev/tmuxline.vim'
 " Language stuff
@@ -66,9 +83,9 @@ filetype plugin indent on
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
 
-			"=================="
-			"  PLUGINS CONFIG  "
-			"=================="
+			"========================"
+			"=  II. PLUGINS CONFIG  ="
+			"========================"
 
 "-----------------------------------------------
 " Unite
@@ -138,14 +155,16 @@ let g:airline_symbols.space = "\ua0"
 "-----------------------------------------------
 "  Ctrl-p
 "-----------------------------------------------
-set wildignore+=*/node_modules/*,*/bower_components/*,*/env/*
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$'
-  \ }"
+" Disabled, for now I'm trying out Unite.vim
+"set wildignore+=*/node_modules/*,*/bower_components/*,*/env/*
+"let g:ctrlp_custom_ignore = {
+"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+"  \ 'file': '\v\.(exe|so|dll)$'
+"  \ }"
 "-----------------------------------------------
 "  JsBeautify
 "-----------------------------------------------
+" for js
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 " for html
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
@@ -155,20 +174,24 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " END PLUGINS
 """"""""""""""""""""""""""""""""""""
 
-			"==================="
-			"  General Options  "
-			"==================="
+			"=========================="
+			"=  III. General Options  ="
+			"=========================="
 
 set encoding=utf-8  " A life in ASCII is a life of pain
 syntax on
 set number
-set hidden
-set tabstop=4
+"set hidden
+set softtabstop=4
+set smarttab
 set shiftwidth=4
 set backspace=2
 set mouse=a
 set modeline
+" Search
 set hlsearch
+set incsearch
+" Always show statusbar
 set laststatus=2
 " Sane people's split navigation
 nnoremap <c-j> <c-w>j
@@ -183,7 +206,8 @@ set clipboard=unnamedplus
 if has('gui_running')
 	set background=dark
 	colorscheme solarized
-	set guifont=Droid\ Sans\ Mono\ 12
+	" For some reason Droid Sans won't work right. Whatever...
+	set guifont=Liberation\ Mono\ for\ Powerline\ 14
 endif
 " Treat Handlebars templates as HTML
 au BufNewFile,BufRead *.handlebars set filetype=html
