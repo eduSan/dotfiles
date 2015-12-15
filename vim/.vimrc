@@ -10,6 +10,8 @@
 " 	- NeoSnippet
 " 	- NeoComplete
 " 	- Airline
+"       - NERDTree
+"       - Tagbar
 " 	- Ctrl-p
 " 	- JsBeautify
 " III. General Options
@@ -65,6 +67,7 @@ NeoBundle 'bling/vim-airline'
 NeoBundle 'flazz/vim-colorschemes'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'ervandew/supertab'
+NeoBundle 'majutsushi/tagbar'
 "NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'christoomey/vim-tmux-navigator'
 NeoBundle 'edkolev/tmuxline.vim'
@@ -83,6 +86,8 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 "End NeoBundle Scripts-------------------------
+" remap leader key before config
+let mapleader = ','
 
 			"========================"
 			"=  II. PLUGINS CONFIG  ="
@@ -169,6 +174,14 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 "-----------------------------------------------
+"  NERDTree
+"-----------------------------------------------
+nnoremap <leader>s :NERDTreeToggle<cr>
+"-----------------------------------------------
+"  Tagbar
+"-----------------------------------------------
+nnoremap <leader>k :TagbarToggle<cr>
+"-----------------------------------------------
 "  Ctrl-p
 "-----------------------------------------------
 " Disabled, for now I'm trying out Unite.vim
@@ -190,9 +203,9 @@ autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 " END PLUGINS
 """"""""""""""""""""""""""""""""""""
 
-"=========================="
-"=  III. General Options  ="
-"=========================="
+                    "=========================="
+                    "=  III. General Options  ="
+                    "=========================="
 
 set encoding=utf-8  " A life in ASCII is a life of pain
 syntax on
@@ -219,12 +232,18 @@ nnoremap <c-l> <c-w>l
 let &t_Co=256
 " Enable yank/delete with the X11 clipboard
 set clipboard=unnamedplus
+"
+" Folding
+set foldmethod=syntax " fold based on indent
+set foldnestmax=10 " deepest fold is 10 levels
+set nofoldenable " don't fold by default
+set foldlevel=1
+"
 " Set color theme for gvim
 if has('gui_running')
     set background=dark
     colorscheme solarized
-    " For some reason Droid Sans won't work right. Whatever...
-    set guifont=Liberation\ Mono\ for\ Powerline\ 14
+    set guifont=Hack\ Regular\ 12
 endif
 " Treat Handlebars templates as HTML
 au BufNewFile,BufRead *.handlebars set filetype=html
