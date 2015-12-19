@@ -7,6 +7,7 @@
 " II.  Plugins configuration
 " 	- Unite
 " 	- Syntastic
+"       - Vim_clang
 " 	- NeoSnippet
 " 	- NeoComplete
 " 	- Airline
@@ -75,6 +76,7 @@ NeoBundle 'edkolev/tmuxline.vim'
 "---------------
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'maksimr/vim-jsbeautify'
+NeoBundle 'mattn/emmet-vim'
 
 " Required:
 call neobundle#end()
@@ -136,11 +138,17 @@ endfunction
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_c_remove_include_errors = 1
+let g:syntastic_cpp_compiler_options = '-std=c++11'
+"-----------------------------------------------
+"  Vim_clang
+"-----------------------------------------------
+let g:clang_cpp_options = '-std=c++11'
 "-----------------------------------------------
 "  NeoSnippet
 "-----------------------------------------------
@@ -215,14 +223,32 @@ set softtabstop=4
 set smarttab
 set expandtab
 set shiftwidth=4
-set backspace=2
+set backspace=indent,eol,start
 set mouse=a
 set modeline
 " Search
+set ignorecase
+set smartcase
 set hlsearch
 set incsearch
-" Always show statusbar
-set laststatus=2
+" Niceties
+set laststatus=2 " Always show statusbar
+set wildmenu " Nicer tab completion in command mode
+set ttyfast " Faster for recent ttys
+set relativenumber " nice for numbered commands
+set showcmd
+set scrolloff=3
+
+" Line wrapping
+set wrap
+set textwidth=79
+set formatoptions=qrn1j
+"set colorcolumn=81
+
+" Show whitespace
+" set list
+" set listchars=tab:▸\ ,eol:¬
+
 " Sane people's split navigation
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
@@ -234,7 +260,7 @@ let &t_Co=256
 set clipboard=unnamedplus
 "
 " Folding
-set foldmethod=syntax " fold based on indent
+set foldmethod=indent " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
