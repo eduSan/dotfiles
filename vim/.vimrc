@@ -9,6 +9,7 @@
 " 	- Syntastic
 "       - Vim_clang
 " 	- NeoSnippet
+" 	- Emmet.vim
 " 	- NeoComplete
 " 	- Airline
 "       - NERDTree
@@ -166,6 +167,13 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
     set conceallevel=2 concealcursor=niv
 endif
+"-----------------------------------------------
+"  Emmet.vim
+"-----------------------------------------------
+" only load for html|css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall"
+let g:user_emmet_leader_key='<C-E>'
 "-----------------------------------------------
 "  NeoComplete
 "-----------------------------------------------
