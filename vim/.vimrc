@@ -28,11 +28,11 @@ if has('vim_starting')
   endif
 
   " Required:
-  set runtimepath+=/home/edusan/.vim/bundle/neobundle.vim/
+  set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('/home/edusan/.vim/bundle'))
+call neobundle#begin(expand('$HOME/.vim/bundle'))
 
 " Let NeoBundle manage NeoBundle
 " Required:
@@ -178,7 +178,7 @@ let g:user_emmet_leader_key='<C-E>'
 "  NeoComplete
 "-----------------------------------------------
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-execute "source " '/home/edusan/.vim/.neocomprc'
+execute "source " '$HOME/.vim/.neocomprc'
 let g:neocomplete#enable_at_startup = 1
 "-----------------------------------------------
 "  Airline

@@ -79,7 +79,7 @@ let g:syntastic_cpp_compiler_options = '-std=c++11'
 "-----------------------------------------------
 "  YouCompleteMe
 "-----------------------------------------------
-let g:ycm_global_ycm_extra_conf="/home/edusan/.config/nvim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf="$HOME/.config/nvim/.ycm_extra_conf.py"
 "-----------------------------------------------
 "  UltiSnips
 "-----------------------------------------------
