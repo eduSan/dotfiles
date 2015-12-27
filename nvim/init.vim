@@ -49,6 +49,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/syntastic'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
 
 call plug#end()
