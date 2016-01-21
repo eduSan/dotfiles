@@ -5,7 +5,7 @@
 " Contents:
 " I.   Plugin Manager (Vim-Plug)
 " II.  Plugins configuration
-" 	- Syntastic
+" 	- NeoMake -----------------Syntastic
 "       - YouCompleteMe
 " 	- UltiSnips
 " 	- Airline
@@ -13,6 +13,7 @@
 "       - Tagbar
 " 	- Ctrl-p
 " 	- JsBeautify
+" 	- Slimux
 " 	- IndentGuides
 " III. General Options
 "=====================================
@@ -44,11 +45,15 @@ Plug 'sgur/ctrlp-extensions.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+
+Plug 'epeli/slimux'
 " Language stuff
 "---------------
-Plug 'scrooloose/syntastic'
+Plug 'benekastah/neomake'
+" Plug 'scrooloose/syntastic'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'pangloss/vim-javascript'
+Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
 
@@ -65,18 +70,22 @@ let mapleader = ','
 			"=  II. PLUGINS CONFIG  ="
 			"========================"
 "-----------------------------------------------
-" Syntastic
+" NeoMake ----- Syntastic
 "-----------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_cpp_compiler_options = '-std=c++11'
+autocmd! BufWritePost * Neomake
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 0
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"" C/C++
+"let g:syntastic_cpp_remove_include_errors = 1
+"let g:syntastic_c_remove_include_errors = 1
+"let g:syntastic_cpp_compiler_options = '-std=c++11'
+"" TypeScript
+"let g:syntastic_typescript_tsc_fname = ''
 "-----------------------------------------------
 "  YouCompleteMe
 "-----------------------------------------------
@@ -124,6 +133,12 @@ autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+"-----------------------------------------------
+"  Slimux
+"-----------------------------------------------
+" Slime-style bindings
+map <C-c><C-c> :SlimuxREPLSendLine<CR>
+vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
 "-----------------------------------------------
 "  IndentGuides
 "-----------------------------------------------
