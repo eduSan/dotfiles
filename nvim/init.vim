@@ -15,6 +15,7 @@
 " 	- JsBeautify
 " 	- Slimux
 " 	- IndentGuides
+"       - RainbowParenthesis
 " III. General Options
 "=====================================
 			"=============================="
@@ -45,6 +46,10 @@ Plug 'sgur/ctrlp-extensions.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'luochen1990/rainbow'
 
 Plug 'epeli/slimux'
 " Language stuff
@@ -56,6 +61,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
+
 
 call plug#end()
 
@@ -147,6 +153,10 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
+"-----------------------------------------------
+"  RainbowParenthesis
+"-----------------------------------------------
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 "
 "
 " END PLUGINS
