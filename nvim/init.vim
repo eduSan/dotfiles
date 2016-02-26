@@ -16,11 +16,12 @@
 " 	- Slimux
 " 	- IndentGuides
 "       - RainbowParenthesis
-" III. General Options
+" III. IDE-style Options
+" IV.  General Options
 "=====================================
-			"=============================="
-			"=  I. Plugin Manager Config  ="
-			"=============================="
+                        "=============================="
+                        "=  I. Plugin Manager Config  ="
+                        "=============================="
 "Plug Scripts-----------------------------
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 "
@@ -77,13 +78,14 @@ filetype plugin indent on
 " remap leader key before config
 let mapleader = ','
 
-			"========================"
-			"=  II. PLUGINS CONFIG  ="
-			"========================"
+                        "========================"
+                        "=  II. PLUGINS CONFIG  ="
+                        "========================"
 "-----------------------------------------------
 " NeoMake ----- Syntastic
 "-----------------------------------------------
 autocmd! BufWritePost * Neomake
+let g:neomake_java_enabled_makers = []  " No maker for Java, I have eclim
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -168,8 +170,24 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 " END PLUGINS
 """"""""""""""""""""""""""""""""""""
 
+                    "============================"
+                    "=  III. IDE-style Options  ="
+                    "============================"
+:set completeopt=longest,menuone        " insert longest common match; menu will come up even if there's only one match
+:inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"      " Select completion with ENTER
+
+" Keep writing while selecting completion
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" Remove common longest text
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+"
+" END IDE
+""""""""""""""""""""""""""""""""""""
                     "=========================="
-                    "=  III. General Options  ="
+                    "=  IV. General Options   ="
                     "=========================="
 
 set encoding=utf-8  " A life in ASCII is a life of pain
@@ -191,7 +209,6 @@ set incsearch
 " Niceties
 set laststatus=2 " Always show statusbar
 set wildmenu " Nicer tab completion in command mode
-set ttyfast " Faster for recent ttys
 set relativenumber " nice for numbered commands
 set showcmd
 set scrolloff=3
