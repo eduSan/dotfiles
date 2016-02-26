@@ -52,6 +52,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-rooter'  " Auto-change directory to project root
+Plug 'Raimondi/delimitMate' " Autoclose stuff
 
 Plug 'epeli/slimux'
 " Language stuff
