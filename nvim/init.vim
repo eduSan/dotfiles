@@ -50,6 +50,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'luochen1990/rainbow'
+Plug 'airblade/vim-rooter'  " Auto-change directory to project root
 
 Plug 'epeli/slimux'
 " Language stuff
@@ -61,6 +62,10 @@ Plug 'pangloss/vim-javascript'
 Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
+
+" Colors and stuff
+"-----------------
+Plug 'flazz/vim-colorschemes'
 
 
 call plug#end()
@@ -96,6 +101,7 @@ autocmd! BufWritePost * Neomake
 "  YouCompleteMe
 "-----------------------------------------------
 let g:ycm_global_ycm_extra_conf="$HOME/.config/nvim/.ycm_extra_conf.py"
+let g:EclimCompletionMethod = 'omnifunc' " For Eclim support
 "-----------------------------------------------
 "  UltiSnips
 "-----------------------------------------------
@@ -124,7 +130,7 @@ nnoremap <leader>k :TagbarToggle<cr>
 "  Ctrl-p
 "-----------------------------------------------
 " Ignore node, bower, virtualenv
-set wildignore+=*/node_modules/*,*/bower_components/*,*/env/*
+set wildignore+=*/node_modules/*,*/bower_components/*,*/env/*,*/jspm_packages/*
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$'
