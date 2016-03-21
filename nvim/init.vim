@@ -64,11 +64,15 @@ Plug 'pangloss/vim-javascript'
 Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 
 " Colors and stuff
 "-----------------
 Plug 'flazz/vim-colorschemes'
 
+Plug 'embear/vim-localvimrc'
+
+Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
@@ -87,6 +91,7 @@ let mapleader = ','
 "-----------------------------------------------
 autocmd! BufWritePost * Neomake
 let g:neomake_java_enabled_makers = []  " No maker for Java, I have eclim
+"let g:neomake_cpp_enabled_makers = []  " No maker for cpp, I have YCM
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -103,6 +108,7 @@ let g:neomake_java_enabled_makers = []  " No maker for Java, I have eclim
 "-----------------------------------------------
 "  YouCompleteMe
 "-----------------------------------------------
+let g:ycm_always_populate_location_list = 1  " Yay :lopen
 let g:ycm_global_ycm_extra_conf="$HOME/.config/nvim/.ycm_extra_conf.py"
 let g:EclimCompletionMethod = 'omnifunc' " For Eclim support
 "-----------------------------------------------
@@ -138,6 +144,12 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }"
+
+" extensions
+let g:ctrlp_extensions = ['tag', 'quickfix', 'rtscript',
+                        \ 'undo', 'line', 'changes', 'autoignore']
+
+
 nnoremap <leader>y :CtrlPYankring<cr>
 "-----------------------------------------------
 "  JsBeautify
@@ -174,7 +186,7 @@ let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
                     "============================"
                     "=  III. IDE-style Options  ="
                     "============================"
-:set completeopt=longest,menuone        " insert longest common match; menu will come up even if there's only one match
+":set completeopt=longest,menuone        " insert longest common match; menu will come up even if there's only one match
 :inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"      " Select completion with ENTER
 
 " Keep writing while selecting completion
@@ -246,5 +258,3 @@ if has('gui_running')
     colorscheme solarized
     set guifont=Hack\ Regular\ 12
 endif
-" Treat Handlebars templates as HTML
-au BufNewFile,BufRead *.handlebars set filetype=html
