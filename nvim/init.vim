@@ -10,6 +10,7 @@
 " 	- UltiSnips
 " 	- Airline
 "       - NERDTree
+"       - LocalVimrc
 "       - Tagbar
 " 	- Ctrl-p
 " 	- JsBeautify
@@ -44,8 +45,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'sgur/ctrlp-extensions.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'edkolev/tmuxline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
@@ -53,8 +52,13 @@ Plug 'tpope/vim-repeat'
 Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-rooter'  " Auto-change directory to project root
 Plug 'Raimondi/delimitMate' " Autoclose stuff
-
+" Tmux & friends
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'edkolev/tmuxline.vim'
+Plug 'benmills/vimux'
 Plug 'epeli/slimux'
+
+Plug 'sigidagi/vim-cmake-project'
 " Language stuff
 "---------------
 Plug 'benekastah/neomake'
@@ -71,8 +75,6 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'flazz/vim-colorschemes'
 
 Plug 'embear/vim-localvimrc'
-
-Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
@@ -131,6 +133,11 @@ let g:airline_symbols.space = "\ua0"
 "  NERDTree
 "-----------------------------------------------
 nnoremap <leader>s :NERDTreeToggle<cr>
+"-----------------------------------------------
+"  LocalVimrc
+"-----------------------------------------------
+let g:localvimrc_persistence_file = $HOME.'/.config/nvim/localvimrc_persistent'
+let g:localvimrc_persistent = 1
 "-----------------------------------------------
 "  Tagbar
 "-----------------------------------------------
