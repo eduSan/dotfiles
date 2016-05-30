@@ -17,6 +17,7 @@
 " 	- Slimux
 " 	- IndentGuides
 "       - RainbowParenthesis
+"       - MemoList
 " III. IDE-style Options
 " IV.  General Options
 "=====================================
@@ -69,12 +70,18 @@ Plug 'keith/swift.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'rust-lang/rust.vim'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-lua-ftplugin'
 
 " Colors and stuff
 "-----------------
 Plug 'flazz/vim-colorschemes'
-
 Plug 'embear/vim-localvimrc'
+
+" Other
+"-------
+Plug 'glidenote/memolist.vim'
 
 call plug#end()
 
@@ -93,7 +100,8 @@ let mapleader = ','
 "-----------------------------------------------
 autocmd! BufWritePost * Neomake
 let g:neomake_java_enabled_makers = []  " No maker for Java, I have eclim
-"let g:neomake_cpp_enabled_makers = []  " No maker for cpp, I have YCM
+let g:neomake_cpp_enabled_makers = []  " No maker for cpp, I have YCM
+
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -105,7 +113,7 @@ let g:neomake_java_enabled_makers = []  " No maker for Java, I have eclim
 "let g:syntastic_cpp_remove_include_errors = 1
 "let g:syntastic_c_remove_include_errors = 1
 "let g:syntastic_cpp_compiler_options = '-std=c++11'
-"" TypeScript
+" TypeScript
 "let g:syntastic_typescript_tsc_fname = ''
 "-----------------------------------------------
 "  YouCompleteMe
@@ -185,7 +193,21 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 "  RainbowParenthesis
 "-----------------------------------------------
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-"
+"-----------------------------------------------
+"  MemoList
+"-----------------------------------------------
+" Memo dir path
+let g:memolist_path = $HOME.'/Dropbox/memo'
+" suffix type (default markdown)
+let g:memolist_memo_suffix = 'markdown' " markdown | txt
+" tags prompt (default 0)
+let g:memolist_prompt_tags = 0
+" categories prompt (default 0)
+let g:memolist_prompt_categories = 0
+" remove filename prefix (default 0)
+let g:memolist_filename_prefix_none = 0
+" use various Ex commands (default '')
+let g:memolist_ex_cmd = 'CtrlP'
 "
 " END PLUGINS
 """"""""""""""""""""""""""""""""""""
