@@ -7,6 +7,7 @@
 " II.  Plugins configuration
 " 	- NeoMake -----------------Syntastic
 "       - YouCompleteMe
+"       - Deoplete
 " 	- UltiSnips
 " 	- Airline
 "       - NERDTree
@@ -29,41 +30,78 @@ call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 "
 " Snippets and completion engines
 "--------------------------------
-Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'} " Ti generate YCM project config
-Plug 'ternjs/tern_for_vim'
-Plug 'davidhalter/jedi-vim'
+
+" Main completion, YCM or deoplete
+
+" YCM  + conf generator
+" Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'} " Ti generate YCM project config
+" Plug 'Valloric/YouCompleteMe'
+
+" Shougo/deoplete
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+
+" Disable supertab with YCM
+Plug 'ervandew/supertab'
+
+" Not sure if tern/jedi plugins are needed with ycm
+" Plug 'ternjs/tern_for_vim'
+" Plug 'davidhalter/jedi-vim'
+
+" Completion sources
+Plug 'zchee/libclang-python3'
+Plug 'zchee/deoplete-clang'
+Plug 'zchee/deoplete-go'
+Plug 'zchee/deoplete-jedi'
+Plug 'ternjs/tern_for_vim'      " Also provides :Tern* commands
+Plug 'carlitux/deoplete-ternjs'
+Plug 'mhartington/deoplete-typescript'
+Plug 'landaire/deoplete-swift'
+Plug 'racer-rust/vim-racer'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-"Plug 'ervandew/supertab'
+
+" Deoplete plugins
+Plug 'Shougo/neoinclude.vim'
+
 " Interface plugins
 "------------------
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
-Plug 'bling/vim-airline'
-Plug 'flazz/vim-colorschemes'
+Plug 'tpope/vim-fugitive'               " git
 Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'sgur/ctrlp-extensions.vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'luochen1990/rainbow'
-Plug 'airblade/vim-rooter'  " Auto-change directory to project root
-Plug 'Raimondi/delimitMate' " Autoclose stuff
+Plug 'scrooloose/nerdtree'              " folder tree nav
+Plug 'bling/vim-airline'                " Cool statusline
+Plug 'majutsushi/tagbar'                " Navigate by function/class
+Plug 'nathanaelkane/vim-indent-guides'  " Show indentation
+Plug 'luochen1990/rainbow'              " Match parens by color
+
+" File finder et al.
+Plug 'ctrlpvim/ctrlp.vim'             " fuzzy file finder
+Plug 'sgur/ctrlp-extensions.vim'      " alternative to Unite
+" Plug 'flazz/vim-colorschemes'
+
+Plug 'scrooloose/nerdcommenter'         " Toggle comment like a boss
+Plug 'tpope/vim-surround'               " Magic powers
+Plug 'tpope/vim-repeat'                 " enable . repeat for plugins
+Plug 'Raimondi/delimitMate'             " Autoclose stuff
+
+Plug 'wincent/ferret'                   " Search with ack/ag
+
 " Tmux & friends
+"---------------
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edkolev/tmuxline.vim'
 Plug 'benmills/vimux'
 Plug 'epeli/slimux'
 
-Plug 'sigidagi/vim-cmake-project'
+" Linters && syntax checkers
+"----------------------------
+Plug 'benekastah/neomake'               " Async! wow!
+" Plug 'scrooloose/syntastic'
+
 " Language stuff
 "---------------
-Plug 'benekastah/neomake'
-" Plug 'scrooloose/syntastic'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'pangloss/vim-javascript'
 Plug 'keith/swift.vim'
@@ -71,17 +109,17 @@ Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'rust-lang/rust.vim'
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-lua-ftplugin'
 
-" Colors and stuff
-"-----------------
-Plug 'flazz/vim-colorschemes'
-Plug 'embear/vim-localvimrc'
+" Project management
+"-------------------
+Plug 'airblade/vim-rooter'      " Auto-change directory to project root
+Plug 'embear/vim-localvimrc'    " load .vimrc from project root
 
 " Other
 "-------
-Plug 'glidenote/memolist.vim'
+Plug 'chriskempson/base16-vim'  " Colors!
+Plug 'glidenote/memolist.vim'   " Nice memo functionality for vim
+Plug 'wincent/loupe'            " File-search tweaks
 
 call plug#end()
 
@@ -122,6 +160,19 @@ let g:ycm_always_populate_location_list = 1  " Yay :lopen
 let g:ycm_global_ycm_extra_conf="$HOME/.config/nvim/.ycm_extra_conf.py"
 let g:EclimCompletionMethod = 'omnifunc' " For Eclim support
 "-----------------------------------------------
+"  Deoplete
+"-----------------------------------------------
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#sources#clang#libclang_path='/usr/lib/llvm-3.8/lib/libclang.so.1'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
+
+" Use deoplete.
+let g:tern_request_timeout = 1
+" Use tern_for_vim.
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+"-----------------------------------------------
 "  UltiSnips
 "-----------------------------------------------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -159,6 +210,18 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$'
   \ }"
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag -Q -l --nocolor --ignore-dir .git --hidden -g "" %s'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 " extensions
 let g:ctrlp_extensions = ['tag', 'quickfix', 'rtscript',
@@ -231,8 +294,6 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
                     "=========================="
                     "=  IV. General Options   ="
                     "=========================="
-
-set encoding=utf-8  " A life in ASCII is a life of pain
 syntax on
 set number
 "set hidden
@@ -249,17 +310,17 @@ set smartcase
 set hlsearch
 set incsearch
 " Niceties
-set laststatus=2 " Always show statusbar
-set wildmenu " Nicer tab completion in command mode
-set relativenumber " nice for numbered commands
+set laststatus=2    " Always show statusbar
+set wildmenu        " Nicer tab completion in command mode
+"set relativenumber " handy for numbered commands
 set showcmd
 set scrolloff=3
 
 " Line wrapping
 set wrap
-set textwidth=79
+set textwidth=80
 set formatoptions=qrn1j
-"set colorcolumn=81
+set colorcolumn=81
 
 " Show whitespace
 " set list
@@ -276,14 +337,15 @@ let &t_Co=256
 set clipboard=unnamedplus
 "
 " Folding
-set foldmethod=indent " fold based on indent
-set foldnestmax=10 " deepest fold is 10 levels
-set nofoldenable " don't fold by default
+set foldmethod=indent   " fold based on indent
+set foldnestmax=10      " deepest fold is 10 levels
+set nofoldenable        " don't fold by default
 set foldlevel=1
-"
+
+" Colors and fonts
+set background=dark
 " Set color theme for gvim
 if has('gui_running')
-    set background=dark
-    colorscheme solarized
-    set guifont=Hack\ Regular\ 12
+    set guifont=Source\ Code \Pro\ Light\ 13
+    colorscheme base16-ocean
 endif
