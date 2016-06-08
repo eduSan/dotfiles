@@ -62,6 +62,7 @@ Plug 'landaire/deoplete-swift'
 Plug 'racer-rust/vim-racer'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'dag/vim-fish'
 
 " Deoplete plugins
 Plug 'Shougo/neoinclude.vim'
@@ -126,7 +127,7 @@ Plug 'wincent/loupe'            " File-search tweaks
 
 call plug#end()
 
-filetype plugin indent on
+filetype plugin indent on       " Enable filetype detection
 
 "End Plug Scripts-------------------------
 
