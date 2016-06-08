@@ -72,6 +72,7 @@ Plug 'tpope/vim-fugitive'               " git
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'              " folder tree nav
 Plug 'bling/vim-airline'                " Cool statusline
+Plug 'vim-airline/vim-airline-themes'
 Plug 'majutsushi/tagbar'                " Navigate by function/class
 Plug 'nathanaelkane/vim-indent-guides'  " Show indentation
 Plug 'luochen1990/rainbow'              " Match parens by color
@@ -86,7 +87,9 @@ Plug 'tpope/vim-surround'               " Magic powers
 Plug 'tpope/vim-repeat'                 " enable . repeat for plugins
 Plug 'Raimondi/delimitMate'             " Autoclose stuff
 
-Plug 'wincent/ferret'                   " Search with ack/ag
+Plug 'mhinz/vim-grepper'                " Grep however you like
+"Plug 'wincent/ferret'                   " Search with ack/ag
+Plug 'kshenoy/vim-signature'            " Show marks on left column
 
 " Tmux & friends
 "---------------
@@ -349,3 +352,4 @@ if has('gui_running')
     set guifont=Source\ Code \Pro\ Light\ 13
     colorscheme base16-ocean
 endif
+let g:airline_theme='base16_hopscotch'
