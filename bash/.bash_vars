@@ -1,7 +1,11 @@
+MY_LOCAL="$HOME/.local"
+export PATH="$PATH:$MY_LOCAL/bin:$MY_LOCAL/share/android-sdk/platform-tools/"
+
 export UNI="eduardo.santarelli@jim.cs.unibo.it"
 export EDITOR="vim"
 export PYTHONSTARTUP="$HOME/.config/pythonstartup.py"
-export PATH="$PATH:$HOME/Android/Sdk/platform-tools/"
 export GOPATH="$HOME/workspace/gohome"
 # Why Ubuntu, why?
 export XDG_CONFIG_HOME="$HOME/.config"
+
+# vim: set syntax=sh :

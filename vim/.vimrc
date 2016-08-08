@@ -3,183 +3,164 @@
 " of cool people.
 " ====================================
 " Contents:
-" I.   Plugin Manager (NeoBundle)
+" I.   Plugin Manager (Vim-Plug)
 " II.  Plugins configuration
-" 	- Unite
-" 	- Syntastic
-"       - Vim_clang
-" 	- NeoSnippet
-" 	- Emmet.vim
-" 	- NeoComplete
+" 	- NeoMake -----------------Syntastic
+"       - YouCompleteMe
+" 	- UltiSnips
 " 	- Airline
 "       - NERDTree
+"       - LocalVimrc
 "       - Tagbar
 " 	- Ctrl-p
 " 	- JsBeautify
-" III. General Options
+" 	- Slimux
+" 	- IndentGuides
+"       - RainbowParenthesis
+"       - MemoList
+" III. IDE-style Options
+" IV.  General Options
 "=====================================
-			"=============================="
-			"=  I. Plugin Manager Config  ="
-			"=============================="
-"NeoBundle Scripts-----------------------------
-if has('vim_starting')
-  if &compatible
-    set nocompatible               " Be iMproved
-  endif
-
-  " Required:
-  set runtimepath+=$HOME/.vim/bundle/neobundle.vim/
-endif
-
-" Required:
-call neobundle#begin(expand('$HOME/.vim/bundle'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-"=================================
-" shougo's system stuff
-"----------------------------
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/neoyank.vim'
+                        "=============================="
+                        "=  I. Plugin Manager Config  ="
+                        "=============================="
+"Plug Scripts-----------------------------
+call plug#begin('$HOME/.vim/plugged')
+"
+" Some plugins like it async
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 " Snippets and completion engines
 "--------------------------------
-NeoBundle 'Shougo/neosnippet.vim'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'justmao945/vim-clang'
-NeoBundle 'davidhalter/jedi-vim'
+
+" Main completion, YCM or deoplete
+
+" YCM  + conf generator
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'} " Ti generate YCM project config
+Plug 'Valloric/YouCompleteMe'
+
+" Disable supertab with YCM
+"Plug 'ervandew/supertab'
+
+" Not sure if tern/jedi plugins are needed with ycm
+Plug 'ternjs/tern_for_vim'
+Plug 'davidhalter/jedi-vim'
+
+" Completion sources
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'dag/vim-fish'
+
+" Deoplete plugins
+Plug 'Shougo/neoinclude.vim'
+
 " Interface plugins
 "------------------
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'flazz/vim-colorschemes'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'ervandew/supertab'
-NeoBundle 'majutsushi/tagbar'
-"NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'christoomey/vim-tmux-navigator'
-NeoBundle 'edkolev/tmuxline.vim'
+Plug 'tpope/vim-fugitive'               " git
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/nerdtree'              " folder tree nav
+Plug 'bling/vim-airline'                " Cool statusline
+Plug 'vim-airline/vim-airline-themes'
+Plug 'majutsushi/tagbar'                " Navigate by function/class
+Plug 'nathanaelkane/vim-indent-guides'  " Show indentation
+Plug 'luochen1990/rainbow'              " Match parens by color
+
+" File finder et al.
+Plug 'ctrlpvim/ctrlp.vim'             " fuzzy file finder
+Plug 'sgur/ctrlp-extensions.vim'      " alternative to Unite
+" Plug 'flazz/vim-colorschemes'
+
+Plug 'scrooloose/nerdcommenter'         " Toggle comment like a boss
+Plug 'tpope/vim-surround'               " Magic powers
+Plug 'tpope/vim-repeat'                 " enable . repeat for plugins
+Plug 'Raimondi/delimitMate'             " Autoclose stuff
+
+Plug 'mhinz/vim-grepper'                " Grep however you like
+"Plug 'wincent/ferret'                   " Search with ack/ag
+Plug 'kshenoy/vim-signature'            " Show marks on left column
+
+" Tmux & friends
+"---------------
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'edkolev/tmuxline.vim'
+Plug 'benmills/vimux'
+Plug 'epeli/slimux'
+
+" Linters && syntax checkers
+"----------------------------
+Plug 'benekastah/neomake'               " Async! wow!
+" Plug 'scrooloose/syntastic'
+
 " Language stuff
 "---------------
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'maksimr/vim-jsbeautify'
-NeoBundle 'mattn/emmet-vim'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'pangloss/vim-javascript'
+Plug 'keith/swift.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'mattn/emmet-vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'rust-lang/rust.vim'
+Plug 'eagletmt/neco-ghc' " Haskell completion
+Plug 'Twinside/vim-haskellConceal'  " Show unicode symbols in code
 
-" Required:
-call neobundle#end()
+" Project management
+"-------------------
+Plug 'airblade/vim-rooter'      " Auto-change directory to project root
+Plug 'embear/vim-localvimrc'    " load .vimrc from project root
 
-" Required:
-filetype plugin indent on
+" Other
+"-------
+Plug 'chriskempson/base16-vim'  " Colors!
+Plug 'glidenote/memolist.vim'   " Nice memo functionality for vim
+Plug 'wincent/loupe'            " File-search tweaks
+Plug 'jamessan/vim-gnupg'       " Tranparent handling of gpg-encrypted files
+Plug 'freitass/todo.txt-vim'    " Todo.txt plugin
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-"End NeoBundle Scripts-------------------------
+call plug#end()
+
+filetype plugin indent on       " Enable filetype detection
+
+"End Plug Scripts-------------------------
+
 " remap leader key before config
 let mapleader = ','
 
-			"========================"
-			"=  II. PLUGINS CONFIG  ="
-			"========================"
+                        "========================"
+                        "=  II. PLUGINS CONFIG  ="
+                        "========================"
+"-----------------------------------------------
+" NeoMake ----- Syntastic
+"-----------------------------------------------
+autocmd! BufWritePost * Neomake
+let g:neomake_java_enabled_makers = []  " No maker for Java, I have eclim
+let g:neomake_cpp_enabled_makers = []  " No maker for cpp, I have YCM
+let g:neomake_c_enabled_makers = []  " No maker for c, I have YCM
 
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 0
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"" C/C++
+"let g:syntastic_cpp_remove_include_errors = 1
+"let g:syntastic_c_remove_include_errors = 1
+"let g:syntastic_cpp_compiler_options = '-std=c++11'
+" TypeScript
+"let g:syntastic_typescript_tsc_fname = ''
 "-----------------------------------------------
-" Unite
+"  YouCompleteMe
 "-----------------------------------------------
-"
-" Unite
-let g:unite_source_history_yank_enable = 1
-" Configure ag to grep files
-let g:unite_source_grep_command = 'ag'
-let g:unite_source_grep_default_opts =
-    \ '-i --vimgrep --hidden --ignore ' .
-    \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''*node_modules/*'' --ignore ''.bzr'''
-let g:unite_source_grep_recursive_opt = ''
-" Setup ag in place of find
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-let g:unite_source_rec_async_command=[
-            \'ag', '--nocolor', '--nogroup',
-            \'--ignore', '.hg',
-            \'--ignore', '.svn',
-            \'--ignore', '.git',
-            \'--ignore', '.bzr',
-            \'--ignore', '*node_modules/*',
-            \'--hidden', '-g', '']
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-    " Play nice with supertab
-    let b:SuperTabDisabled=1
-    " Enable navigation with control-j and control-k in insert mode
-    imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-    imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
+let g:ycm_always_populate_location_list = 1  " Yay :lopen
+let g:ycm_global_ycm_extra_conf="$HOME/.config/nvim/.ycm_extra_conf.py"
+let g:EclimCompletionMethod = 'omnifunc' " For Eclim support
 "-----------------------------------------------
-" Syntastic
+"  UltiSnips
 "-----------------------------------------------
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_c_remove_include_errors = 1
-let g:syntastic_cpp_compiler_options = '-std=c++11'
-"-----------------------------------------------
-"  Vim_clang
-"-----------------------------------------------
-let g:clang_cpp_options = '-std=c++11'
-"-----------------------------------------------
-"  NeoSnippet
-"-----------------------------------------------
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-" SuperTab like snippets behavior.
-imap <expr><TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ neosnippet#expandable_or_jumpable() ?
-            \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-            \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" For conceal markers.
-if has('conceal')
-    set conceallevel=2 concealcursor=niv
-endif
-"-----------------------------------------------
-"  Emmet.vim
-"-----------------------------------------------
-" only load for html|css
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall"
-let g:user_emmet_leader_key='<C-E>'
-"-----------------------------------------------
-"  NeoComplete
-"-----------------------------------------------
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-execute "source " '$HOME/.vim/.neocomprc'
-let g:neocomplete#enable_at_startup = 1
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "-----------------------------------------------
 "  Airline
 "-----------------------------------------------
@@ -194,18 +175,42 @@ let g:airline_symbols.space = "\ua0"
 "-----------------------------------------------
 nnoremap <leader>s :NERDTreeToggle<cr>
 "-----------------------------------------------
+"  LocalVimrc
+"-----------------------------------------------
+let g:localvimrc_persistence_file = $HOME.'/.config/nvim/localvimrc_persistent'
+let g:localvimrc_persistent = 1
+"-----------------------------------------------
 "  Tagbar
 "-----------------------------------------------
 nnoremap <leader>k :TagbarToggle<cr>
 "-----------------------------------------------
 "  Ctrl-p
 "-----------------------------------------------
-" Disabled, for now I'm trying out Unite.vim
-"set wildignore+=*/node_modules/*,*/bower_components/*,*/env/*
-"let g:ctrlp_custom_ignore = {
-"  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"  \ 'file': '\v\.(exe|so|dll)$'
-"  \ }"
+" Ignore node, bower, virtualenv
+set wildignore+=*/node_modules/*,*/bower_components/*,*/env/*,*/jspm_packages/*
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$'
+  \ }"
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag -Q -l --nocolor --ignore-dir .git --hidden -g "" %s'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" extensions
+let g:ctrlp_extensions = ['tag', 'quickfix', 'rtscript',
+                        \ 'undo', 'line', 'changes', 'autoignore']
+
+
+nnoremap <leader>y :CtrlPYankring<cr>
 "-----------------------------------------------
 "  JsBeautify
 "-----------------------------------------------
@@ -215,15 +220,62 @@ autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+"-----------------------------------------------
+"  Slimux
+"-----------------------------------------------
+" Slime-style bindings
+map <C-c><C-c> :SlimuxREPLSendLine<CR>
+vmap <C-c><C-c> :SlimuxREPLSendSelection<CR>
+"-----------------------------------------------
+"  IndentGuides
+"-----------------------------------------------
+let g:indent_guides_start_level = 2
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
+"-----------------------------------------------
+"  RainbowParenthesis
+"-----------------------------------------------
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+"-----------------------------------------------
+"  MemoList
+"-----------------------------------------------
+" Memo dir path
+let g:memolist_path = $HOME.'/Dropbox/memo'
+" suffix type (default markdown)
+let g:memolist_memo_suffix = 'markdown' " markdown | txt
+" tags prompt (default 0)
+let g:memolist_prompt_tags = 0
+" categories prompt (default 0)
+let g:memolist_prompt_categories = 0
+" remove filename prefix (default 0)
+let g:memolist_filename_prefix_none = 0
+" use various Ex commands (default '')
+let g:memolist_ex_cmd = 'CtrlP'
 "
 " END PLUGINS
 """"""""""""""""""""""""""""""""""""
 
-                    "=========================="
-                    "=  III. General Options  ="
-                    "=========================="
+                    "============================"
+                    "=  III. IDE-style Options  ="
+                    "============================"
+":set completeopt=longest,menuone        " insert longest common match; menu will come up even if there's only one match
+:inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"      " Select completion with ENTER
 
-set encoding=utf-8  " A life in ASCII is a life of pain
+" Keep writing while selecting completion
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" Remove common longest text
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+"
+" END IDE
+""""""""""""""""""""""""""""""""""""
+                    "=========================="
+                    "=  IV. General Options   ="
+                    "=========================="
 syntax on
 set number
 "set hidden
@@ -240,18 +292,17 @@ set smartcase
 set hlsearch
 set incsearch
 " Niceties
-set laststatus=2 " Always show statusbar
-set wildmenu " Nicer tab completion in command mode
-set ttyfast " Faster for recent ttys
-set relativenumber " nice for numbered commands
+set laststatus=2    " Always show statusbar
+set wildmenu        " Nicer tab completion in command mode
+"set relativenumber " handy for numbered commands
 set showcmd
 set scrolloff=3
 
 " Line wrapping
 set wrap
-set textwidth=79
+set textwidth=80
 set formatoptions=qrn1j
-"set colorcolumn=81
+set colorcolumn=81
 
 " Show whitespace
 " set list
@@ -268,16 +319,21 @@ let &t_Co=256
 set clipboard=unnamedplus
 "
 " Folding
-set foldmethod=indent " fold based on indent
-set foldnestmax=10 " deepest fold is 10 levels
-set nofoldenable " don't fold by default
+set foldmethod=indent   " fold based on indent
+set foldnestmax=10      " deepest fold is 10 levels
+set nofoldenable        " don't fold by default
 set foldlevel=1
-"
+
+" Colors and fonts
+set background=dark
 " Set color theme for gvim
 if has('gui_running')
-    set background=dark
-    colorscheme solarized
-    set guifont=Hack\ Regular\ 12
+    set guifont=Source\ Code\ Pro\ Light\ 13
+    colorscheme base16-monokai
 endif
-" Treat Handlebars templates as HTML
-au BufNewFile,BufRead *.handlebars set filetype=html
+let g:airline_theme='base16_hopscotch'
+
+" TODO find a place
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+set rtp^="/home/edusan/.opam/system/share/ocp-indent/vim"

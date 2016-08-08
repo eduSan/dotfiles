@@ -20,3 +20,10 @@ alias l='ls -CF'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 alias vi="vim"
+# For todo.txt
+alias todo="todo.sh -c -d ~/.config/todo.conf"
+alias t="todo"
+
+if [ -n "$BASH_VERSION" ]; then
+    complete -F _todo t
+fi

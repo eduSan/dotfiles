@@ -123,3 +123,6 @@ fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# OPAM configuration
+. /home/edusan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
